@@ -1,0 +1,31 @@
+.layoutContainer {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: rgb(31, 39, 56);
+  grid-template-rows: 40px calc(100vh - 40px);
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "header header"
+    "visual control";
+}
+
+.header{
+  color: rgb(202, 138, 138);
+  grid-area: header;
+}
+
+.visualPane {
+  grid-area: visual;
+  margin: 10px;
+  border: 1px solid rgb(202, 138, 138);
+}
+
+.controlPane {
+  grid-area: control;
+  margin: 10px;
+  border: 1px solid rgb(202, 138, 138);
+}
