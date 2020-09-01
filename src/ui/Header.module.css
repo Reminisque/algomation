@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  padding: 4px 16px;
+  height: 40px;
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 20px;
+}
