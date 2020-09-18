@@ -1,0 +1,15 @@
+.root {
+  height: 1.75rem;
+  width: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: transparent;
+}
+
+.bar {
+  height: 0.25rem;
+  width: 1.75rem;
+  border-radius: 10px;
+  background: rgb(202, 138, 138);
+}

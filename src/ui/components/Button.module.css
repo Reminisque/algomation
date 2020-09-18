@@ -1,0 +1,14 @@
+.root {
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  outline: 2px solid rgb(192, 180, 180);
+  font-weight: 400;
+  color: rgb(192, 180, 180);
+  background: transparent;
+  transition: background 400ms;
+}
+
+.root:hover {
+  background: rgb(92, 83, 90);
+}
