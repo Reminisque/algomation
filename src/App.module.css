@@ -1,12 +1,20 @@
-.layoutContainer {
-  display: grid;
+:root {
+  --header-height: 60px;
+  --main-color: rgb(202, 138, 138);
+}
+
+.root {
   height: 100%;
   width: 100%;
+}
+
+.layoutContainer {
+  display: grid;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   background: rgb(31, 39, 56);
-  grid-template-rows: 40px calc(100vh - 40px);
+  grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
     "header header"
@@ -14,18 +22,26 @@
 }
 
 .header{
-  color: rgb(202, 138, 138);
   grid-area: header;
+  height: var(--header-height);
+  color: var(--main-color);
+}
+
+.header .brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1.25em;
 }
 
 .visualPane {
   grid-area: visual;
-  margin: 10px;
-  border: 1px solid rgb(202, 138, 138);
+  margin: 4px 16px;
+  border: 1px solid var(--main-color);
 }
 
 .controlPane {
   grid-area: control;
-  margin: 10px;
-  border: 1px solid rgb(202, 138, 138);
+  margin: 4px 16px;
+  border: 1px solid var(--main-color);
 }
