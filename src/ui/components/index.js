@@ -1,7 +1,9 @@
-import { Menu } from './Menu';
-import { MenuItem } from './MenuItem';
+import { Button } from './Button'
+import { BannerMenu } from './BannerMenu';
+import { TwoBarBurgerIcon } from './TwoBarBurgerIcon';
 
 export {
-  Menu,
-  MenuItem
+  Button,
+  BannerMenu,
+  TwoBarBurgerIcon
 };

@@ -1,12 +1,13 @@
-import { Menu, MenuItem } from './components';
+import { Button, BannerMenu, TwoBarBurgerIcon } from './components';
 
 import { Header } from './Header';
 import { VisualPane } from './VisualPane';
 import { ControlPane } from './ControlPane';
 
 export {
-  Menu,
-  MenuItem,
+  Button,
+  BannerMenu,
+  TwoBarBurgerIcon,
   Header,
   VisualPane,
   ControlPane
