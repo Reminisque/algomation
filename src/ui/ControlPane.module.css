@@ -1,0 +1,25 @@
+.root {
+  position: relative;
+}
+
+.algoMenu {
+  height: 0;
+  background: rgb(133, 101, 160);
+  transition: height 0.5s;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.algoMenu.open {
+  height: 100%;
+}
+
+.algoMenuBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 12px;
+  outline: none;
+  border-radius: 50%;
+  z-index: 1001;
+}
