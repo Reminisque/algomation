@@ -4,14 +4,17 @@
 
 .algoMenu {
   height: 0;
+  width: 0;
   background: rgb(133, 101, 160);
-  transition: height 0.5s;
+  transition: height 0.5s, width 0.5s;
   overflow: hidden;
+  white-space: nowrap;
   z-index: 1000;
 }
 
 .algoMenu.open {
   height: 100%;
+  width: 100%;
 }
 
 .algoMenuBtn {

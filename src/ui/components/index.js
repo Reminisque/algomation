@@ -1,9 +1,9 @@
 import { Button } from './Button'
-import { BannerMenu } from './BannerMenu';
+import { Menu } from './Menu';
 import { TwoBarBurgerIcon } from './TwoBarBurgerIcon';
 
 export {
   Button,
-  BannerMenu,
+  Menu,
   TwoBarBurgerIcon
 };

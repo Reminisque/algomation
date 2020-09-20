@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, BannerMenu, TwoBarBurgerIcon } from './components';
+import { Button, Menu, TwoBarBurgerIcon } from './components';
 import styles from './ControlPane.module.css';
 
 class ControlPane extends React.Component {
@@ -14,7 +14,7 @@ class ControlPane extends React.Component {
 
   render() {
     const { className } = this.props;
-    const menuOpened = this.state.openAlgoMenu ? styles.open : "";
+    const menuOpened = this.state.openAlgoMenu ? styles.open : '';
 
     return (
       <div className={[styles.root, className].join(' ')}>
@@ -22,7 +22,8 @@ class ControlPane extends React.Component {
         <Button className={styles.algoMenuBtn} onClick={this.toggleOpenAlgoMenu}>
           <TwoBarBurgerIcon></TwoBarBurgerIcon>
         </Button>
-        <BannerMenu className={[styles.algoMenu, menuOpened].join(' ')}></BannerMenu>
+        <Menu className={[styles.algoMenu, menuOpened].join(' ')}>
+        </Menu>
       </div>
     )
   }
