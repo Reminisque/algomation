@@ -1,28 +1,70 @@
 .root {
   position: relative;
+  color: rgb(202, 138, 138);
+  overflow: hidden;
+  --base-anim-dur: 0.5s;
+  --base-padding: 20px;
 }
 
 .algoMenu {
-  height: 0;
-  width: 0;
-  background: rgb(133, 101, 160);
-  transition: height 0.5s, width 0.5s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--base-padding);
+  padding-top: calc(var(--base-padding) * 4);
+  background: rgba(31, 39, 56, 0.95);
   overflow: hidden;
   white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.85);
+  visibility: hidden;
+  transition: 
+    opacity var(--base-anim-dur) ease-in-out,
+    transform calc(var(--base-anim-dur) - 0.1s) ease-in-out,
+    visibility calc(var(--base-anim-dur) + 0.1s);
   z-index: 1000;
 }
 
 .algoMenu.open {
-  height: 100%;
-  width: 100%;
+  opacity: 100%;
+  visibility: visible;
+  transform: scale(1);
 }
 
 .algoMenuBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: var(--base-padding);
+  right: var(--base-padding);
   padding: 12px;
   outline: none;
   border-radius: 50%;
   z-index: 1001;
+}
+
+.algoMenuFlex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.algoMenuGroup {
+  flex: 0 0 30%;
+  margin: 24px 8px;
+}
+
+.category {
+  font-size: 1.2rem;
+}
+
+.algorithm {
+  font-size: 3rem;
+}
+
+.pseudocode {
+  font-size: 1.1rem;
+  background: rgb(31, 39, 56);
+  
 }
