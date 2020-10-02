@@ -5,9 +5,12 @@ function CodeBox(props) {
   return (
     <div className={[styles.root, props.className].join(' ')}>
       {props.code.map((code, lineNum) =>
-        <div className={styles.line} key={lineNum}>
-          <div className={styles.lineNum}>{lineNum + 1}</div>
-          <code className={styles.code}>{code}</code>
+        <div key={lineNum} className={styles.line}>
+        <div className={styles.lineNum}>{lineNum + 1}</div>
+          {props.highlightSet?.has(lineNum + 1) 
+            ? <code className={styles.code} style={{background: props.highlightColor}}>{code}</code>
+            : <code className={styles.code}>{code}</code>
+          }
         </div>
       )}
     </div>
