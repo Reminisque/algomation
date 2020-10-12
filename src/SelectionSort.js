@@ -2,16 +2,18 @@ import React from 'react';
 import { Button, CodeBox } from './ui';
 import * as d3 from 'd3';
 
+const RADIUS = 20;
+
 class SelectionSort extends React.Component {
   constructor() {
     super();
 
     this.state = {
       array: [],
-      start: null,
-      minimum: null,
-      current: null,
-      sortedTo: null,
+      start: -1,
+      minimum: -1,
+      current: -1,
+      sortedTo: -1,
       codeHighlights: new Set()
     };
 
@@ -68,40 +70,55 @@ class SelectionSort extends React.Component {
 
   run() {
     let unsorted = [...this.props.array];
+    let state = { ...this.state };
 
     this.backtrack.length = 0;
-    this.backtrack.push({
-      ...this.state,
-      array: [...unsorted]
-    });
+    state.array = [...unsorted];
+    this.backtrack.push(state);
 
     for (let start = 0; start < unsorted.length - 1; start++) {
       let min = start;
-      this.backtrack.push({
+      state = {
+        ...state,
         start: start,
         minimum: min,
         codeHighlights: new Set([1, 2])
-      });
+      };
+      this.backtrack.push(state);
       for (let curr = start; curr < unsorted.length; curr++) {
-        this.backtrack.push({
+        state = {
+          ...state,
           current: curr,
           codeHighlights: new Set([1, 3, 4])
-        });
+        };
+        this.backtrack.push(state);
         if (unsorted[curr] < unsorted[min]) {
           min = curr;
-          this.backtrack.push({
+          state = {
+            ...state,
             minimum: min,
             codeHighlights: new Set([1, 3, 4, 5])
-          })
+          };
+          this.backtrack.push(state);
         }
       }
       [unsorted[start], unsorted[min]] = [unsorted[min], unsorted[start]];
-      this.backtrack.push({
+      state = {
+        ...state,
         array: [...unsorted],
         sortedTo: start,
         codeHighlights: new Set([1, 6])
-      });
+      };
+      this.backtrack.push(state);
     }
+    state = {
+      ...state,
+      minimum: -1,
+      current: -1,
+      sortedTo: unsorted.length,
+      codeHighlights: new Set()
+    };
+    this.backtrack.push(state);
 
     this.backtrackState(0);
   }
@@ -109,42 +126,70 @@ class SelectionSort extends React.Component {
   componentDidMount() {
     this.handleInfo();
     this.renderCircles();
-    
   }
 
   componentDidUpdate() {
     this.renderCircles();
-    console.log('updated');
   }
-  
+
   renderCircles() {
-    const radius = 20;
-    const array = this.state.array;
-    this.svg = d3.select(this.svgRef.current);
-    this.svg.selectAll('*').remove();
-    this.elem = this.svg.selectAll('g').data(array);
-    let elemEnter = this.elem.enter()
+    const { array, minimum, current, sortedTo } = this.state;
+    let svg = d3.select(this.svgRef.current);
+    let g = svg.selectAll('g').data(array);
+    let circles = g.select('circle');
+    g
+      .exit()
+      .transition()
+      .duration(500)
+      .style('opacity', 0)
+      .remove();
+      
+    circles
+      .transition()
+      .duration(300)
+      .style('fill', (d, i) => {
+        if (i === minimum)
+          return 'red';
+        else if (i === current)
+          return 'orange';
+        else if (i <= sortedTo)
+          return 'slateblue';
+        return 'plum';
+      });
+
+    g
+      .select('text')
+      .text((d) => d);
+
+    let enter = g.enter()
       .append('g')
-      .attr('transform', (d, i) => `translate(${i * radius * 2 + radius}, 0)`);
-
-    elemEnter
+      .attr('transform', (d, i) => `translate(${i * RADIUS * 2 + RADIUS}, 0)`);
+    
+    enter
       .append('circle')
-      .attr('r', radius)
-      .attr('cy', radius)
-      .style('fill', 'red')
+      .attr('r', RADIUS)
+      .attr('cy', RADIUS)
+      .style('fill', 'plum');
 
-    elemEnter
+    enter
       .append('text')
       .text((d) => d)
       .attr('text-anchor', 'middle')
-      .attr('dy', radius)
+      .attr('dy', RADIUS)
+
+    enter
+      .style('opacity', 0)
+      .transition()
+      .duration(400)
+      .style('opacity', 1);
   }
+
 
   render() {
     const { array, highlightColor } = this.props;
     return (
       <div>
-        <svg width="900" height="400" viewbox="0 0 100 100" ref={this.svgRef}></svg>
+        <svg width="900" height="400" viewBox="0 0 900 400" ref={this.svgRef}></svg>
         <div className="array">
           {this.state.array
             ? this.state.array.join(' ')
