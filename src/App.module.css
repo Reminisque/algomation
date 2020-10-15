@@ -6,6 +6,7 @@
   --base-anim-dur: 0.5s;
   height: 100%;
   width: 100%;
+  min-height: 100%;
   color: var(--main-color);
   background: var(--bg-color);
 }
