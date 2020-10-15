@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, CodeBox } from './ui';
+import { Button } from './ui';
 import * as d3 from 'd3';
 
 const RADIUS = 24;
