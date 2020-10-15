@@ -20,6 +20,9 @@ class App extends React.Component {
     this.highlightColor = "rgba(134, 87, 87, 0.5)";
     this.visualRef = React.createRef();
     this.backtrack = [];
+    this.playbackSpeed = 166;
+    this.playing = false;
+
 
     this.toggleOpenAlgoMenu = this.toggleOpenAlgoMenu.bind(this);
     this.setInfo = this.setInfo.bind(this);
@@ -27,6 +30,9 @@ class App extends React.Component {
     this.backtrackTo = this.backtrackTo.bind(this);
     this.nextBacktrackState = this.nextBacktrackState.bind(this);
     this.prevBacktrackState = this.prevBacktrackState.bind(this);
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
+    this.togglePlayback = this.togglePlayback.bind(this);
     this.runCallback = this.runCallback.bind(this);
   }
 
@@ -86,6 +92,30 @@ class App extends React.Component {
 
   prevBacktrackState() {
     this.backtrackTo(this.state.current - 1);
+  }
+
+  play() {
+    this.playback = setInterval(() => {
+      if (0 <= this.state.current && this.state.current < this.backtrack.length - 1) {
+        this.nextBacktrackState();
+        this.playing = true;
+      } else {
+        this.pause();
+      }
+    }, this.playbackSpeed);
+  }
+
+  pause() {
+    clearInterval(this.playback);
+    this.playing = false;
+  }
+
+  togglePlayback() {
+    if (this.playing) {
+      this.pause();
+    } else {
+      this.play()
+    }
   }
 
   runCallback(backtrack) {
@@ -151,6 +181,7 @@ class App extends React.Component {
                 prevState={this.prevBacktrackState}
                 {...this.state.restOfProps}
               ></SelectionSort>
+              <Button onClick={this.togglePlayback}>Play/Pause</Button>
             </div>
           </div>
         </div>

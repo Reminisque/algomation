@@ -108,7 +108,7 @@ class SelectionSort extends React.Component {
   componentDidUpdate() {
     this.renderCircles();
   }
-  
+
   renderCircles() {
     const { array, minimum, current, sortedTo, svgRef } = this.props;
     let svg = d3.select(svgRef.current);
@@ -128,7 +128,7 @@ class SelectionSort extends React.Component {
 
     circles
       .transition()
-      .duration(300)
+      .duration(150)
       .style('fill', (d, i) => {
         if (i === minimum)
           return 'red';
