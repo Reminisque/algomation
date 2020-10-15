@@ -133,16 +133,15 @@ class App extends React.Component {
               ></CodeBox>
             </div>
             <div className={styles.controls}>
-              <div className={styles.playback}>
-                <input
-                  type="range"
-                  min="0"
-                  max={this.backtrack.length - 1}
-                  step="1"
-                  value={this.state.current}
-                  onInput={(e) => this.backtrackTo(e.target.value)}
-                ></input>
-              </div>
+              <input
+                className={styles.playback}
+                type="range"
+                min="0"
+                max={this.backtrack.length - 1}
+                step="1"
+                value={this.state.current}
+                onChange={(e) => this.backtrackTo(parseInt(e.target.value))}
+              ></input>
               <SelectionSort
                 handleInfo={this.setInfo}
                 highlightColor={this.highlightColor}

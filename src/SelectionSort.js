@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, CodeBox } from './ui';
 import * as d3 from 'd3';
 
-const RADIUS = 20;
+const RADIUS = 24;
 
 class SelectionSort extends React.Component {
   constructor() {
@@ -93,7 +93,7 @@ class SelectionSort extends React.Component {
       ...state,
       minimum: -1,
       current: -1,
-      sortedTo: unsorted.length,
+      sortedTo: unsorted.length - 1,
       codeHighlights: new Set()
     };
     backtrack.push(state);
@@ -108,7 +108,7 @@ class SelectionSort extends React.Component {
   componentDidUpdate() {
     this.renderCircles();
   }
-
+  
   renderCircles() {
     const { array, minimum, current, sortedTo, svgRef } = this.props;
     let svg = d3.select(svgRef.current);
