@@ -4,17 +4,10 @@
   --bg-color: rgb(31, 39, 56);
   --base-padding: 20px;
   --base-anim-dur: 0.5s;
-  display: relative;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   color: var(--main-color);
   background: var(--bg-color);
-}
-
-.container {
-  width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .header{
@@ -23,8 +16,7 @@
   align-items: center;
   height: var(--header-height);
   color: var(--main-color);
-  padding-left: 80px;
-  padding-right: 80px;
+  padding: 0 16px;
 }
 
 .header .brand {
@@ -34,17 +26,18 @@
   font-size: 1.25em;
 }
 
-.controlPane {
+.content {
   position: relative;
-  height: 100%;
-  margin: 4px 16px;
+  height: calc(100% - var(--header-height));
   color: var(--main-color);
 }
 
 .algoMenu {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: var(--base-padding);
   padding-top: calc(var(--base-padding) * 4);
   background: rgba(31, 39, 56, 0.95);
@@ -80,7 +73,7 @@
 
 .algoMenuGroup {
   flex: 0 0 30%;
-  margin: 24px 8px;
+  margin: 8px 16px;
 }
 
 .category {
@@ -95,4 +88,13 @@
   font-size: 1.1rem;
   color: var(--main-color);
   background: rgb(31, 39, 56);
+}
+
+.visualPane {
+  width: 100%;
+}
+
+.visual {
+  width: 900px;
+  height: 600px;
 }

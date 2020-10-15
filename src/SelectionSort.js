@@ -8,15 +8,6 @@ class SelectionSort extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      array: [],
-      start: -1,
-      minimum: -1,
-      current: -1,
-      sortedTo: -1,
-      codeHighlights: new Set()
-    };
-
     this.name = 'Selection Sort';
     this.category = 'Sorting Algorithm';
     this.pseudocode = [
@@ -27,12 +18,8 @@ class SelectionSort extends React.Component {
       '      set element as new minimum',
       '  swap positions of minimum and first unsorted element'
     ];
-    this.backtrack = [];
-    this.backtrackIndex = 0;
-    this.svgRef = React.createRef();
 
     this.handleInfo = this.handleInfo.bind(this);
-    this.backtrackState = this.backtrackState.bind(this);
     this.run = this.run.bind(this);
     this.renderCircles = this.renderCircles.bind(this);
   }
@@ -47,34 +34,25 @@ class SelectionSort extends React.Component {
     }
   }
 
-  backtrackState(backtrackIndex) {
-    if (backtrackIndex < this.backtrack.length) {
-      this.backtrackIndex = backtrackIndex;
-      this.setState({ ...this.backtrack[backtrackIndex] });
-    }
-  }
-
-  nextState() {
-    const next = this.backtrackIndex + 1;
-    if (next < this.backtrack.length) {
-      this.backtrackState(this.backtrackIndex + 1);
-    }
-  }
-
-  prevState() {
-    const prev = this.backtrackIndex - 1;
-    if (prev >= 0) {
-      this.backtrackState(this.backtrackIndex - 1);
+  runCallback(backtrack) {
+    if (this.props.runCallback) {
+      this.props.runCallback(backtrack);
     }
   }
 
   run() {
-    let unsorted = [...this.props.array];
-    let state = { ...this.state };
-
-    this.backtrack.length = 0;
+    let unsorted = [...Array(20)].map(() => Math.floor(Math.random() * 101));
+    let state = {
+      array: [],
+      start: -1,
+      minimum: -1,
+      current: -1,
+      sortedTo: -1,
+      codeHighlights: new Set()
+    };
+    let backtrack = [];
     state.array = [...unsorted];
-    this.backtrack.push(state);
+    backtrack.push(state);
 
     for (let start = 0; start < unsorted.length - 1; start++) {
       let min = start;
@@ -84,14 +62,14 @@ class SelectionSort extends React.Component {
         minimum: min,
         codeHighlights: new Set([1, 2])
       };
-      this.backtrack.push(state);
+      backtrack.push(state);
       for (let curr = start; curr < unsorted.length; curr++) {
         state = {
           ...state,
           current: curr,
           codeHighlights: new Set([1, 3, 4])
         };
-        this.backtrack.push(state);
+        backtrack.push(state);
         if (unsorted[curr] < unsorted[min]) {
           min = curr;
           state = {
@@ -99,7 +77,7 @@ class SelectionSort extends React.Component {
             minimum: min,
             codeHighlights: new Set([1, 3, 4, 5])
           };
-          this.backtrack.push(state);
+          backtrack.push(state);
         }
       }
       [unsorted[start], unsorted[min]] = [unsorted[min], unsorted[start]];
@@ -109,7 +87,7 @@ class SelectionSort extends React.Component {
         sortedTo: start,
         codeHighlights: new Set([1, 6])
       };
-      this.backtrack.push(state);
+      backtrack.push(state);
     }
     state = {
       ...state,
@@ -118,14 +96,13 @@ class SelectionSort extends React.Component {
       sortedTo: unsorted.length,
       codeHighlights: new Set()
     };
-    this.backtrack.push(state);
-
-    this.backtrackState(0);
+    backtrack.push(state);
+    this.runCallback(backtrack);
   }
 
   componentDidMount() {
     this.handleInfo();
-    this.renderCircles();
+    d3.select(this.props.svgRef.current).selectAll('*').remove();
   }
 
   componentDidUpdate() {
@@ -133,17 +110,22 @@ class SelectionSort extends React.Component {
   }
 
   renderCircles() {
-    const { array, minimum, current, sortedTo } = this.state;
-    let svg = d3.select(this.svgRef.current);
-    let g = svg.selectAll('g').data(array);
+    const { array, minimum, current, sortedTo, svgRef } = this.props;
+    let svg = d3.select(svgRef.current);
+    let g = svg.selectAll('g').data(array ? array : []);
     let circles = g.select('circle');
+
     g
       .exit()
       .transition()
       .duration(500)
       .style('opacity', 0)
       .remove();
-      
+
+    g
+      .select('text')
+      .text((d) => d);
+
     circles
       .transition()
       .duration(300)
@@ -157,25 +139,22 @@ class SelectionSort extends React.Component {
         return 'plum';
       });
 
-    g
-      .select('text')
-      .text((d) => d);
-
     let enter = g.enter()
       .append('g')
-      .attr('transform', (d, i) => `translate(${i * RADIUS * 2 + RADIUS}, 0)`);
-    
+      .attr('transform', (d, i) => `translate(${i * RADIUS * 2 + RADIUS + i * 10}, 0)`);
+
     enter
       .append('circle')
       .attr('r', RADIUS)
-      .attr('cy', RADIUS)
+      .attr('cy', '50%')
       .style('fill', 'plum');
 
     enter
       .append('text')
       .text((d) => d)
       .attr('text-anchor', 'middle')
-      .attr('dy', RADIUS)
+      .attr('alignment-baseline', 'middle')
+      .attr('dy', '50%');
 
     enter
       .style('opacity', 0)
@@ -186,24 +165,11 @@ class SelectionSort extends React.Component {
 
 
   render() {
-    const { array, highlightColor } = this.props;
     return (
       <div>
-        <svg width="900" height="400" viewBox="0 0 900 400" ref={this.svgRef}></svg>
-        <div className="array">
-          {this.state.array
-            ? this.state.array.join(' ')
-            : null
-          }
-          <Button onClick={() => { this.run(); console.log(this.backtrack) }}>Run Algorithm</Button>
-          <Button onClick={() => this.prevState()}>Previous state</Button>
-          <Button onClick={() => this.nextState()}>Next state</Button>
-          <CodeBox
-            code={this.pseudocode}
-            highlightColor={highlightColor}
-            highlightSet={this.state.codeHighlights}
-          ></CodeBox>
-        </div>
+        <Button onClick={() => this.run()}>Run Algorithm</Button>
+        <Button onClick={() => this.props.prevState()}>Previous state</Button>
+        <Button onClick={() => this.props.nextState()}>Next state</Button>
       </div>
     )
   }
