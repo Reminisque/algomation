@@ -4,7 +4,6 @@
   --bg-color: rgb(31, 39, 56);
   --base-padding: 20px;
   --base-anim-dur: 0.5s;
-  height: 100%;
   width: 100%;
   min-height: 100%;
   color: var(--main-color);
@@ -104,4 +103,5 @@
 
 .playback {
   width: 400px;
+  margin: 16px 0;
 }
