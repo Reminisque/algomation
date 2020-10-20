@@ -61,6 +61,7 @@
 
 .algoMenuBtn {
   outline: none;
+  border: none;
   border-radius: 50%;
 }
 
@@ -87,12 +88,28 @@
   height: 100%;
 }
 
+.controlPane {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "info control";
+}
+
+.algoInfo {
+  grid-area: info;
+}
+
 .category {
   font-size: 1.2rem;
 }
 
 .algoName {
   font-size: 3rem;
+}
+
+.controls {
+  grid-area: control;
 }
 
 .pseudocode {
@@ -102,6 +119,6 @@
 }
 
 .playback {
-  width: 400px;
+  width: 80%;
   margin: 16px 0;
 }

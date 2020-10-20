@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from './ui';
 import * as d3 from 'd3';
 
-const RADIUS = 24;
+const RADIUS = 20;
 
 class SelectionSort extends React.Component {
   constructor() {
@@ -103,6 +103,13 @@ class SelectionSort extends React.Component {
   componentDidMount() {
     this.handleInfo();
     d3.select(this.props.svgRef.current).selectAll('*').remove();
+    d3.select(this.props.svgRef.current)
+      .append('div')
+      .style('position', 'relative')
+      .style('top', '50%')
+      .style('display', 'flex')
+      .style('flex-direction', 'row')
+      .style('justify-content', 'center')
   }
 
   componentDidUpdate() {
@@ -111,56 +118,39 @@ class SelectionSort extends React.Component {
 
   renderCircles() {
     const { array, minimum, current, sortedTo, svgRef } = this.props;
-    let svg = d3.select(svgRef.current);
-    let g = svg.selectAll('g').data(array ? array : []);
-    let circles = g.select('circle');
+    let svg = d3.select(svgRef.current).select('div');
+    let div = svg.selectAll('div').data(array ? array : []);
 
-    g
+    div
       .exit()
       .transition()
       .duration(500)
       .style('opacity', 0)
       .remove();
 
-    g
-      .select('text')
+    div
       .text((d) => d);
 
-    circles
+    div
       .transition()
       .duration(150)
-      .style('fill', (d, i) => {
+      .style('height', (d) => `${RADIUS + d * 1.5}px`)
+      .style('background', (d, i) => {
         if (i === minimum)
-          return 'red';
+          return 'indianred';
         else if (i === current)
-          return 'orange';
-        else if (i <= sortedTo)
-          return 'slateblue';
-        return 'plum';
+          return 'mediumorchid';
+        return 'transparent';
       });
 
-    let enter = g.enter()
-      .append('g')
-      .attr('transform', (d, i) => `translate(${i * RADIUS * 2 + RADIUS + i * 10}, 0)`);
-
-    enter
-      .append('circle')
-      .attr('r', RADIUS)
-      .attr('cy', '50%')
-      .style('fill', 'plum');
-
-    enter
-      .append('text')
-      .text((d) => d)
-      .attr('text-anchor', 'middle')
-      .attr('alignment-baseline', 'middle')
-      .attr('dy', '50%');
-
-    enter
-      .style('opacity', 0)
-      .transition()
-      .duration(400)
-      .style('opacity', 1);
+    let enter = div.enter()
+      .append('div')
+      .style('width', '32px')
+      .style('height', (d) => `${RADIUS + d}px`)
+      .style('padding', '8px')
+      .style('border', '1px solid')
+      .style('text-align', 'center')
+      .text((d) => d);
   }
 
 
@@ -168,8 +158,6 @@ class SelectionSort extends React.Component {
     return (
       <div>
         <Button onClick={() => this.run()}>Run Algorithm</Button>
-        <Button onClick={() => this.props.prevState()}>Previous state</Button>
-        <Button onClick={() => this.props.nextState()}>Next state</Button>
       </div>
     )
   }

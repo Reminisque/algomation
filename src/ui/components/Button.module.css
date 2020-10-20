@@ -1,14 +1,11 @@
 .root {
+  --default-color: rgb(192, 180, 180);
+  cursor: pointer;
   margin: 0;
   padding: 8px 12px;
-  border: 0;
-  outline: 2px solid rgb(192, 180, 180);
-  font-weight: 400;
-  color: rgb(192, 180, 180);
+  border: 1px solid var(--default-color);
+  color: var(--default-color);
   background: transparent;
+  font-weight: 400;
   transition: background 400ms;
-}
-
-.root:hover {
-  background: rgb(134, 77, 73);
 }

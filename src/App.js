@@ -149,7 +149,7 @@ class App extends React.Component {
             </div>
           </div>
           <div className={styles.visualPane}>
-            <svg className={styles.visual} ref={this.visualRef}></svg>
+            <div className={styles.visual} ref={this.visualRef}></div>
           </div>
           <div className={styles.controlPane}>
             <div className={styles.algoInfo}>
@@ -177,11 +177,11 @@ class App extends React.Component {
                 highlightColor={this.highlightColor}
                 svgRef={this.visualRef}
                 runCallback={this.runCallback}
-                nextState={this.nextBacktrackState}
-                prevState={this.prevBacktrackState}
                 {...this.state.restOfProps}
               ></SelectionSort>
+              <Button onClick={this.prevBacktrackState}>Previous State</Button>
               <Button onClick={this.togglePlayback}>Play/Pause</Button>
+              <Button onClick={this.nextBacktrackState}>Next State</Button>
             </div>
           </div>
         </div>
