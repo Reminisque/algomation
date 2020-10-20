@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Header, Button, CodeBox, Menu, MenuItem, TwoBarBurgerIcon } from './ui';
 import { SelectionSort } from './SelectionSort';
+import { InsertionSort } from './InsertionSort';
 import styles from './App.module.css';
 
 class App extends React.Component {
@@ -179,6 +180,13 @@ class App extends React.Component {
                 runCallback={this.runCallback}
                 {...this.state.restOfProps}
               ></SelectionSort>
+              <InsertionSort
+                handleInfo={this.setInfo}
+                highlightColor={this.highlightColor}
+                svgRef={this.visualRef}
+                runCallback={this.runCallback}
+                {...this.state.restOfProps}
+              ></InsertionSort>
               <Button onClick={this.prevBacktrackState}>Previous State</Button>
               <Button onClick={this.togglePlayback}>Play/Pause</Button>
               <Button onClick={this.nextBacktrackState}>Next State</Button>

@@ -4,19 +4,18 @@ import * as d3 from 'd3';
 
 const BAR_LENGTH = 20;
 
-class SelectionSort extends React.Component {
+class InsertionSort extends React.Component {
   constructor() {
     super();
 
-    this.name = 'Selection Sort';
+    this.name = 'Insertion Sort';
     this.category = 'Sorting Algorithm';
     this.pseudocode = [
-      'for (numOfElements - 1) times',
-      '  set first element of unsorted as the minimum',
-      '  for each unsorted element',
-      '    if element < currentMinimum',
-      '      set element as new minimum',
-      '  swap positions of minimum and first unsorted element'
+      'traverse from index 1 to len(arr) - 1',
+      '  save current position',
+      '  while previous element exists and is larger than current element',
+      '    swap positions of current and previous element',
+      '    save new position of current as current position',
     ];
 
     this.handleInfo = this.handleInfo.bind(this);
@@ -44,9 +43,8 @@ class SelectionSort extends React.Component {
     let unsorted = [...Array(20)].map(() => Math.floor(Math.random() * 101));
     let state = {
       array: [],
-      start: -1,
-      minimum: -1,
       current: -1,
+      previous: -1,
       sortedTo: -1,
       codeHighlights: new Set()
     };
@@ -54,45 +52,44 @@ class SelectionSort extends React.Component {
     state.array = [...unsorted];
     backtrack.push(state);
 
-    for (let start = 0; start < unsorted.length - 1; start++) {
-      let min = start;
+    for (let start = 1; start < unsorted.length; start++) {
+      let curr = start;
       state = {
         ...state,
-        start: start,
-        minimum: min,
+        current: curr,
         codeHighlights: new Set([1, 2])
       };
       backtrack.push(state);
-      for (let curr = start; curr < unsorted.length; curr++) {
+      while (curr > 0 && unsorted[curr - 1] > unsorted[curr]) {
+        let prev = curr - 1;
         state = {
           ...state,
-          current: curr,
+          previous: prev,
+          codeHighlights: new Set([1, 3])
+        };
+        backtrack.push(state);
+        [unsorted[prev], unsorted[curr]] = [unsorted[curr], unsorted[prev]];
+        state = {
+          ...state,
+          array: [...unsorted],
+          current: prev,
+          previous: curr,
           codeHighlights: new Set([1, 3, 4])
         };
         backtrack.push(state);
-        if (unsorted[curr] < unsorted[min]) {
-          min = curr;
-          state = {
-            ...state,
-            minimum: min,
-            codeHighlights: new Set([1, 3, 4, 5])
-          };
-          backtrack.push(state);
-        }
+        curr = prev;
+        state = {
+          ...state,
+          previous: -1,
+          codeHighlights: new Set([1, 3, 5])
+        };
+        backtrack.push(state);
       }
-      [unsorted[start], unsorted[min]] = [unsorted[min], unsorted[start]];
-      state = {
-        ...state,
-        array: [...unsorted],
-        sortedTo: start,
-        codeHighlights: new Set([1, 6])
-      };
-      backtrack.push(state);
     }
     state = {
       ...state,
-      minimum: -1,
       current: -1,
+      previous: -1,
       sortedTo: unsorted.length - 1,
       codeHighlights: new Set()
     };
@@ -117,7 +114,7 @@ class SelectionSort extends React.Component {
   }
 
   renderVisual() {
-    const { array, minimum, current, sortedTo, svgRef } = this.props;
+    const { array, current, previous, sortedTo, svgRef } = this.props;
     let svg = d3.select(svgRef.current).select('div');
     let div = svg.selectAll('div').data(array ? array : []);
 
@@ -136,9 +133,9 @@ class SelectionSort extends React.Component {
       .duration(150)
       .style('height', (d) => `${BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
-        if (i === minimum)
+        if (i === current)
           return 'indianred';
-        else if (i === current)
+        else if (i === previous)
           return 'mediumorchid';
         return 'transparent';
       });
@@ -157,10 +154,10 @@ class SelectionSort extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={() => this.run()}>Run Selection Sort</Button>
+        <Button onClick={() => this.run()}>Run Insertion Sort</Button>
       </div>
     )
   }
 }
 
-export { SelectionSort };
+export { InsertionSort };
