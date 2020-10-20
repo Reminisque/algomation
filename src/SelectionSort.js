@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from './ui';
 import * as d3 from 'd3';
 
-const RADIUS = 20;
+const BAR_LENGTH = 20;
 
 class SelectionSort extends React.Component {
   constructor() {
@@ -21,7 +21,7 @@ class SelectionSort extends React.Component {
 
     this.handleInfo = this.handleInfo.bind(this);
     this.run = this.run.bind(this);
-    this.renderCircles = this.renderCircles.bind(this);
+    this.renderVisual = this.renderVisual.bind(this);
   }
 
   handleInfo() {
@@ -113,10 +113,10 @@ class SelectionSort extends React.Component {
   }
 
   componentDidUpdate() {
-    this.renderCircles();
+    this.renderVisual();
   }
 
-  renderCircles() {
+  renderVisual() {
     const { array, minimum, current, sortedTo, svgRef } = this.props;
     let svg = d3.select(svgRef.current).select('div');
     let div = svg.selectAll('div').data(array ? array : []);
@@ -134,7 +134,7 @@ class SelectionSort extends React.Component {
     div
       .transition()
       .duration(150)
-      .style('height', (d) => `${RADIUS + d * 1.5}px`)
+      .style('height', (d) => `${BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
         if (i === minimum)
           return 'indianred';
@@ -146,7 +146,7 @@ class SelectionSort extends React.Component {
     let enter = div.enter()
       .append('div')
       .style('width', '32px')
-      .style('height', (d) => `${RADIUS + d}px`)
+      .style('height', (d) => `${BAR_LENGTH + d * 1.5}px`)
       .style('padding', '8px')
       .style('border', '1px solid')
       .style('text-align', 'center')
