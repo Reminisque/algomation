@@ -107,6 +107,7 @@ class InsertionSort extends React.Component {
       .style('display', 'flex')
       .style('flex-direction', 'row')
       .style('justify-content', 'center')
+    this.run();
   }
 
   componentDidUpdate() {

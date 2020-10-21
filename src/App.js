@@ -10,6 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
       openAlgoMenu: false,
+      algorithm: "",
       current: -1,
       name: "",
       category: "",
@@ -35,6 +36,8 @@ class App extends React.Component {
     this.pause = this.pause.bind(this);
     this.togglePlayback = this.togglePlayback.bind(this);
     this.runCallback = this.runCallback.bind(this);
+    this.setAlgorithm = this.setAlgorithm.bind(this);
+    this.getAlgoComponent = this.getAlgoComponent.bind(this);
   }
 
   algoMenu = [
@@ -124,8 +127,37 @@ class App extends React.Component {
     this.backtrackTo(0);
   }
 
+  setAlgorithm(algorithm) {
+    // this.pause();
+    this.setState({algorithm: algorithm, openAlgoMenu: false});
+  }
+
+  getAlgoComponent() {
+    let Algorithm = null;
+    switch (this.state.algorithm) {
+      case "Selection Sort":
+        Algorithm = SelectionSort;
+        break;
+      case "Insertion Sort":
+        Algorithm = InsertionSort;
+        break;
+      default:
+        return null
+    }
+    return (
+      <Algorithm
+        handleInfo={this.setInfo}
+        highlightColor={this.highlightColor}
+        svgRef={this.visualRef}
+        runCallback={this.runCallback}
+        {...this.state.restOfProps}
+      ></Algorithm>
+    )
+  }
+
   render() {
     const menuOpened = this.state.openAlgoMenu ? styles.open : "";
+    const algorithmComponent = this.getAlgoComponent();
     return (
       <div className={styles.root}>
         <Header className={styles.header}>
@@ -141,9 +173,15 @@ class App extends React.Component {
             <div className={styles.algoMenuFlex}>
               {this.algoMenu.map((group) =>
                 <Menu key={group.title} className={styles.algoMenuGroup}>
-                  <MenuItem title>{group.title} </MenuItem>
+                  <MenuItem className={styles.algoMenuGroupTitle}>{group.title} </MenuItem>
                   {group.algorithms.map((algorithm) =>
-                    <MenuItem key={algorithm}>{algorithm}</MenuItem>
+                    <MenuItem 
+                      key={algorithm} 
+                      className={styles.algoMenuItem} 
+                      onClick={() => this.setAlgorithm(algorithm)}
+                    >
+                      {algorithm}
+                    </MenuItem>
                   )}
                 </Menu>
               )}
@@ -164,29 +202,18 @@ class App extends React.Component {
               ></CodeBox>
             </div>
             <div className={styles.controls}>
-              <input
-                className={styles.playback}
-                type="range"
-                min="0"
-                max={this.backtrack.length - 1}
-                step="1"
-                value={this.state.current}
-                onChange={(e) => this.backtrackTo(parseInt(e.target.value))}
-              ></input>
-              <SelectionSort
-                handleInfo={this.setInfo}
-                highlightColor={this.highlightColor}
-                svgRef={this.visualRef}
-                runCallback={this.runCallback}
-                {...this.state.restOfProps}
-              ></SelectionSort>
-              <InsertionSort
-                handleInfo={this.setInfo}
-                highlightColor={this.highlightColor}
-                svgRef={this.visualRef}
-                runCallback={this.runCallback}
-                {...this.state.restOfProps}
-              ></InsertionSort>
+              <div>
+                <input
+                  className={styles.playback}
+                  type="range"
+                  min="0"
+                  max={this.backtrack.length - 1}
+                  step="1"
+                  value={this.state.current}
+                  onChange={(e) => this.backtrackTo(parseInt(e.target.value))}
+                ></input>
+              </div>
+              {algorithmComponent}
               <Button onClick={this.prevBacktrackState}>Previous State</Button>
               <Button onClick={this.togglePlayback}>Play/Pause</Button>
               <Button onClick={this.nextBacktrackState}>Next State</Button>
