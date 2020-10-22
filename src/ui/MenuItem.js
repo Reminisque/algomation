@@ -2,11 +2,9 @@ import React from 'react';
 import styles from './MenuItem.module.css';
 
 function MenuItem(props) {
-  const { className } = props;
-
   return (
     <React.Fragment>
-      <li {...props} className={[styles.root, className].join(' ')}>
+      <li {...props} className={[styles.root, props.className].join(' ')}>
         {props.children}
       </li>
     </React.Fragment>
