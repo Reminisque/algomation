@@ -1,8 +1,8 @@
 import React from 'react';
+import * as d3 from 'd3';
 import logo from './logo.svg';
 import { Header, Button, CodeBox, Menu, MenuItem, TwoBarBurgerIcon } from './ui';
-import { SelectionSort } from './SelectionSort';
-import { InsertionSort } from './InsertionSort';
+import { selectionSort, insertionSort, bubbleSort } from './algorithms';
 import styles from './App.module.css';
 
 class App extends React.Component {
@@ -10,7 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
       openAlgoMenu: false,
-      algorithm: "",
+      algorithm: null,
       current: -1,
       name: "",
       category: "",
@@ -28,16 +28,14 @@ class App extends React.Component {
 
     this.toggleOpenAlgoMenu = this.toggleOpenAlgoMenu.bind(this);
     this.setInfo = this.setInfo.bind(this);
-    this.setBacktrack = this.setBacktrack.bind(this);
+    this.clearBacktrack = this.clearBacktrack.bind(this);
     this.backtrackTo = this.backtrackTo.bind(this);
     this.nextBacktrackState = this.nextBacktrackState.bind(this);
     this.prevBacktrackState = this.prevBacktrackState.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.togglePlayback = this.togglePlayback.bind(this);
-    this.runCallback = this.runCallback.bind(this);
-    this.setAlgorithm = this.setAlgorithm.bind(this);
-    this.getAlgoComponent = this.getAlgoComponent.bind(this);
+    this.runAlgorithm = this.runAlgorithm.bind(this);
   }
 
   algoMenu = [
@@ -46,7 +44,7 @@ class App extends React.Component {
       algorithms: [
         'Selection Sort',
         'Insertion Sort',
-        'Merge Sort'
+        'Bubble Sort'
       ]
     },
     {
@@ -74,14 +72,15 @@ class App extends React.Component {
       pseudocode: algoInfo.pseudocode
     });
   }
-
-  setBacktrack(backtrack) {
-    this.backtrack = [...backtrack];
+  
+  clearBacktrack() {
+    this.backtrack = [];
   }
 
   backtrackTo(index) {
     if (0 <= index && index < this.backtrack.length) {
       const { codeHighlights, ...restOfProps } = this.backtrack[index];
+      this.state.algorithm.renderVisual(this.visualRef, restOfProps);
       this.setState({
         current: index,
         codeHighlights: codeHighlights,
@@ -99,6 +98,7 @@ class App extends React.Component {
   }
 
   play() {
+    clearInterval(this.playback);
     this.playback = setInterval(() => {
       if (0 <= this.state.current && this.state.current < this.backtrack.length - 1) {
         this.nextBacktrackState();
@@ -122,42 +122,45 @@ class App extends React.Component {
     }
   }
 
-  runCallback(backtrack) {
-    this.setBacktrack(backtrack);
-    this.backtrackTo(0);
-  }
+  setAlgorithm(name) {
+    let algorithm = null;
 
-  setAlgorithm(algorithm) {
-    // this.pause();
-    this.setState({algorithm: algorithm, openAlgoMenu: false});
-  }
+    this.clearBacktrack();
 
-  getAlgoComponent() {
-    let Algorithm = null;
-    switch (this.state.algorithm) {
+    switch (name) {
       case "Selection Sort":
-        Algorithm = SelectionSort;
+        algorithm = new selectionSort();
         break;
       case "Insertion Sort":
-        Algorithm = InsertionSort;
+        algorithm = new insertionSort();
         break;
-      default:
-        return null
+      case "Bubble Sort":
+        algorithm = new bubbleSort();
+        break;
     }
-    return (
-      <Algorithm
-        handleInfo={this.setInfo}
-        highlightColor={this.highlightColor}
-        svgRef={this.visualRef}
-        runCallback={this.runCallback}
-        {...this.state.restOfProps}
-      ></Algorithm>
-    )
+
+    this.setState(
+      {algorithm: algorithm, openAlgoMenu: false},
+      () => {
+        if (this.state.algorithm) {
+          this.state.algorithm.initialRender(this.visualRef);
+          this.runAlgorithm();
+        }
+      }
+    );
+  }
+
+  runAlgorithm() {
+    this.clearBacktrack();
+
+    if (this.state.algorithm) {
+      this.state.algorithm.run(this.backtrack)
+    }
+    this.backtrackTo(0);
   }
 
   render() {
     const menuOpened = this.state.openAlgoMenu ? styles.open : "";
-    const algorithmComponent = this.getAlgoComponent();
     return (
       <div className={styles.root}>
         <Header className={styles.header}>
@@ -192,11 +195,11 @@ class App extends React.Component {
           </div>
           <div className={styles.controlPane}>
             <div className={styles.algoInfo}>
-              <div className={styles.category}>{this.state.category}</div>
-              <div className={styles.algoName}>{this.state.name}</div>
+              <div className={styles.category}>{this.state.algorithm?.category}</div>
+              <div className={styles.algoName}>{this.state.algorithm?.name}</div>
               <CodeBox
                 className={styles.pseudocode}
-                code={this.state.pseudocode}
+                code={this.state.algorithm?.pseudocode ?? []}
                 highlightColor={this.highlightColor}
                 highlightSet={this.state.codeHighlights}
               ></CodeBox>
@@ -213,7 +216,7 @@ class App extends React.Component {
                   onChange={(e) => this.backtrackTo(parseInt(e.target.value))}
                 ></input>
               </div>
-              {algorithmComponent}
+              <Button onClick={() => this.runAlgorithm()}>RUN</Button>
               <Button onClick={this.prevBacktrackState}>Previous State</Button>
               <Button onClick={this.togglePlayback}>Play/Pause</Button>
               <Button onClick={this.nextBacktrackState}>Next State</Button>
