@@ -1,9 +1,13 @@
-import selectionSort from './selectionSort';
-import insertionSort from './insertionSort';
-import bubbleSort from './bubbleSort';
+import {
+  bubbleSort,
+  insertionSort,
+  mergeSort,
+  selectionSort
+} from './Sorting';
 
 export {
-  selectionSort,
+  bubbleSort,
   insertionSort,
-  bubbleSort
+  mergeSort,
+  selectionSort
 };

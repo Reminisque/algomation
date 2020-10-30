@@ -5,9 +5,9 @@ class sorting {
     this.BAR_LENGTH = 20;
   }
 
-  initialRender(svgRef) {
-    d3.select(svgRef.current).selectAll('*').remove();
-    d3.select(svgRef.current)
+  initialRender(visualRef) {
+    d3.select(visualRef.current).selectAll('*').remove();
+    d3.select(visualRef.current)
       .append('div')
       .style('position', 'relative')
       .style('top', '50%')
@@ -16,12 +16,11 @@ class sorting {
       .style('justify-content', 'center');
   }
 
-  renderEnterExit(svgRef, array, barLength) {
-    let svg = d3.select(svgRef.current).select('div');
-    let div = svg.selectAll('div').data(array ? array : []);
+  renderEnterExit(visualRef, array, barLength) {
+    let ref = d3.select(visualRef.current).select('div');
+    let div = ref.selectAll('div').data(array ? array : []);
 
-    div
-      .exit()
+    div.exit()
       .transition()
       .duration(500)
       .style('opacity', 0)

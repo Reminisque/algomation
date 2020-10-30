@@ -2,19 +2,16 @@ import React from 'react';
 import * as d3 from 'd3';
 import logo from './logo.svg';
 import { Header, Button, CodeBox, Menu, MenuItem, TwoBarBurgerIcon } from './ui';
-import { selectionSort, insertionSort, bubbleSort } from './algorithms';
+import { selectionSort, insertionSort, bubbleSort, mergeSort } from './algorithms';
 import styles from './App.module.css';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      openAlgoMenu: false,
+      openAlgoMenu: true,
       algorithm: null,
       current: -1,
-      name: "",
-      category: "",
-      pseudocode: [],
       codeHighlights: new Set(),
       restOfProps: {}
     };
@@ -27,7 +24,6 @@ class App extends React.Component {
 
 
     this.toggleOpenAlgoMenu = this.toggleOpenAlgoMenu.bind(this);
-    this.setInfo = this.setInfo.bind(this);
     this.clearBacktrack = this.clearBacktrack.bind(this);
     this.backtrackTo = this.backtrackTo.bind(this);
     this.nextBacktrackState = this.nextBacktrackState.bind(this);
@@ -44,7 +40,8 @@ class App extends React.Component {
       algorithms: [
         'Selection Sort',
         'Insertion Sort',
-        'Bubble Sort'
+        'Bubble Sort',
+        'Merge Sort'
       ]
     },
     {
@@ -63,14 +60,6 @@ class App extends React.Component {
 
   toggleOpenAlgoMenu = () => {
     this.setState({ openAlgoMenu: !this.state.openAlgoMenu });
-  }
-
-  setInfo(algoInfo) {
-    this.setState({
-      name: algoInfo.name,
-      category: algoInfo.category,
-      pseudocode: algoInfo.pseudocode
-    });
   }
   
   clearBacktrack() {
@@ -136,6 +125,9 @@ class App extends React.Component {
         break;
       case "Bubble Sort":
         algorithm = new bubbleSort();
+        break;
+      case "Merge Sort":
+        algorithm = new mergeSort();
         break;
     }
 
