@@ -14,10 +14,11 @@ class mergeSort extends sorting {
       'merge two halves together in order',
       '  while left and right halves have elements',
       '    move least element to result array',
-      '  while left half has elements',
+      '  while left half still has elements',
       '    move least element to result array',
-      '  while right half has elements',
+      '  while right half still has elements',
       '    move least element to result array',
+      'update original array'
     ];
   }
 
@@ -54,7 +55,7 @@ class mergeSort extends sorting {
   renderEnterExit(visualRef, mainArray, altArray, barLength) {
     let ref = d3.select(visualRef.current);
     let main = ref.select('#main').selectAll('div').data(mainArray ? mainArray : []);
-    let alt = ref.select('#alt').selectAll('div').data(altArray ? altArray: []);
+    let alt = ref.select('#alt').selectAll('div').data(altArray ? altArray : []);
 
     main.exit()
       .transition()
@@ -106,6 +107,13 @@ class mergeSort extends sorting {
       .duration(150)
       .style('height', (d) => {
         return d === null ? '0px' : `${this.BAR_LENGTH + d * 1.5}px`
+      })
+      .style('background', (d, i) => {
+        if (state.left <= i && i < state.mid)
+          return 'indianred';
+        else if (state.mid <= i && i < state.right)
+          return 'mediumorchid';
+        return 'transparent';
       });
 
     alt
@@ -131,8 +139,35 @@ class mergeSort extends sorting {
       if (right - left > 1) {
         let mid = Math.floor(left + (right - left) / 2);
 
+        state = {
+          ...state,
+          left: left,
+          mid: mid,
+          right: mid,
+          codeHighlights: new Set([1, 2])
+        }
+        backtrack.push(state);
         mergeSort(left, mid);
+        
+        state = {
+          ...state,
+          left: mid,
+          mid: mid,
+          right: right,
+          codeHighlights: new Set([1, 3])
+        }
+        backtrack.push(state);
         mergeSort(mid, right);
+
+        state = {
+          ...state,
+          left: left,
+          mid: mid,
+          right: right,
+          codeHighlights: new Set([4]) 
+        };
+        backtrack.push(state);
+        
 
         let leftHalf = unsorted.slice(left, mid);
         let rightHalf = unsorted.slice(mid, right);
@@ -142,30 +177,40 @@ class mergeSort extends sorting {
         while (leftHalf.length > 0 && rightHalf.length > 0) {
           if (leftHalf[0] < rightHalf[0]) {
             merged.unshift(leftHalf.shift());
+            unsorted[left++] = null;
           } else {
             merged.unshift(rightHalf.shift());
+            unsorted[mid++] = null;
           }
           state = {
             ...state,
-            altArray: [...merged]
+            mainArray: [...unsorted],
+            altArray: [...merged],
+            codeHighlights: new Set([4, 5, 6])
           };
           backtrack.push(state);
         }
 
         while (leftHalf.length > 0) {
           merged.unshift(leftHalf.shift());
+          unsorted[left++] = null;
           state = {
             ...state,
-            altArray: [...merged]
+            mainArray: [...unsorted],
+            altArray: [...merged],
+            codeHighlights: new Set([4, 7, 8])
           };
           backtrack.push(state);
         }
 
         while (rightHalf.length > 0) {
           merged.unshift(rightHalf.shift());
+          unsorted[mid++] = null;
           state = {
             ...state,
-            altArray: [...merged]
+            mainArray: [...unsorted],
+            altArray: [...merged],
+            codeHighlights: new Set([4, 9, 10])
           };
           backtrack.push(state);
         }
@@ -175,7 +220,8 @@ class mergeSort extends sorting {
           state = {
             ...state,
             mainArray: [...unsorted],
-            altArray: [...merged]
+            altArray: [...merged],
+            codeHighlights: new Set([11]) 
           };
           backtrack.push(state);
         }
@@ -189,6 +235,9 @@ class mergeSort extends sorting {
 
     state = {
       ...state,
+      left: 0,
+      mid: 0,
+      right: 0,
       codeHighlights: new Set()
     };
     backtrack.push(state);
