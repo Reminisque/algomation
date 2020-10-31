@@ -16,7 +16,7 @@ class App extends React.Component {
       restOfProps: {}
     };
 
-    this.highlightColor = "rgba(134, 87, 87, 0.5)";
+    this.highlightColor = 'rgba(134, 87, 87, 0.5)';
     this.visualRef = React.createRef();
     this.backtrack = [];
     this.playbackSpeed = 166;
