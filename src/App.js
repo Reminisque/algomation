@@ -117,16 +117,16 @@ class App extends React.Component {
     this.clearBacktrack();
 
     switch (name) {
-      case "Selection Sort":
+      case 'Selection Sort':
         algorithm = new selectionSort();
         break;
-      case "Insertion Sort":
+      case 'Insertion Sort':
         algorithm = new insertionSort();
         break;
-      case "Bubble Sort":
+      case 'Bubble Sort':
         algorithm = new bubbleSort();
         break;
-      case "Merge Sort":
+      case 'Merge Sort':
         algorithm = new mergeSort();
         break;
     }
