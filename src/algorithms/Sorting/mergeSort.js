@@ -91,10 +91,10 @@ class mergeSort extends sorting {
       .text((d) => d);
   }
 
-  renderUpdate(visualRef, state) {
+  renderUpdate(visualRef, mainArray, altArray, left, mid, right) {
     let ref = d3.select(visualRef.current);
-    let main = ref.select('#main').selectAll('div').data(state.mainArray ? state.mainArray : []);
-    let alt = ref.select('#alt').selectAll('div').data(state.altArray ? state.altArray : []);
+    let main = ref.select('#main').selectAll('div').data(mainArray ? mainArray : []);
+    let alt = ref.select('#alt').selectAll('div').data(altArray ? altArray : []);
 
     main
       .text((d) => d);
@@ -109,9 +109,9 @@ class mergeSort extends sorting {
         return d === null ? '0px' : `${this.BAR_LENGTH + d * 1.5}px`
       })
       .style('background', (d, i) => {
-        if (state.left <= i && i < state.mid)
+        if (left <= i && i < mid)
           return 'indianred';
-        else if (state.mid <= i && i < state.right)
+        else if (mid <= i && i < right)
           return 'mediumorchid';
         return 'transparent';
       });
@@ -123,8 +123,10 @@ class mergeSort extends sorting {
   }
 
   renderVisual(visualRef, state) {
-    this.renderEnterExit(visualRef, state.mainArray, state.altArray, this.BAR_LENGTH);
-    this.renderUpdate(visualRef, state)
+    const { mainArray, altArray, left, mid, right} = state;
+    
+    this.renderEnterExit(visualRef, mainArray, altArray, this.BAR_LENGTH);
+    this.renderUpdate(visualRef, mainArray, altArray, left, mid, right)
   }
 
   run(backtrack) {

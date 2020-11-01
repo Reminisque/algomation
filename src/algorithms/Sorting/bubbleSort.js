@@ -17,12 +17,12 @@ class bubbleSort extends sorting {
     ];
   }
 
-  renderUpdate(visualRef, state) {
+  renderUpdate(visualRef, array, current, next) {
     let div = d3
       .select(visualRef.current)
       .select('div')
       .selectAll('div')
-      .data(state.array ? state.array : []);
+      .data(array ? array : []);
 
     div
       .text((d) => d);
@@ -32,17 +32,19 @@ class bubbleSort extends sorting {
       .duration(150)
       .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
-        if (i === state.current)
+        if (i === current)
           return 'indianred';
-        else if (i === state.next)
+        else if (i === next)
           return 'mediumorchid';
         return 'transparent';
       });
   }
 
   renderVisual(visualRef, state) {
-    this.renderEnterExit(visualRef, state.array, this.BAR_LENGTH);
-    this.renderUpdate(visualRef, state)
+    const { array, current, next } = state;
+
+    this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
+    this.renderUpdate(visualRef, array, current, next);
   }
 
   run(backtrack) {

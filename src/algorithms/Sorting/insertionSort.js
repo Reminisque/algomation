@@ -16,12 +16,12 @@ class insertionSort extends sorting {
     ];
   }
 
-  renderUpdate(visualRef, state) {
+  renderUpdate(visualRef, array, current, previous) {
     let div = d3
       .select(visualRef.current)
       .select('div')
       .selectAll('div')
-      .data(state.array ? state.array : []);
+      .data(array ? array : []);
 
     div
       .text((d) => d);
@@ -31,17 +31,19 @@ class insertionSort extends sorting {
       .duration(150)
       .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
-        if (i === state.current)
+        if (i === current)
           return 'indianred';
-        else if (i === state.previous)
+        else if (i === previous)
           return 'mediumorchid';
         return 'transparent';
       });
   }
 
   renderVisual(visualRef, state) {
-    this.renderEnterExit(visualRef, state.array, this.BAR_LENGTH);
-    this.renderUpdate(visualRef, state);
+    const { array, current, previous} = state;
+
+    this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
+    this.renderUpdate(visualRef, array, current, previous);
   }
 
   run(backtrack) {

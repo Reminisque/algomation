@@ -17,12 +17,12 @@ class selectionSort extends sorting {
     ];
   }
 
-  renderUpdate(visualRef, state) {
+  renderUpdate(visualRef, array, minimum, current) {
     let div = d3
       .select(visualRef.current)
       .select('div')
       .selectAll('div')
-      .data(state.array ? state.array : []);
+      .data(array ? array : []);
 
     div
       .text((d) => d);
@@ -32,17 +32,19 @@ class selectionSort extends sorting {
       .duration(150)
       .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
-        if (i === state.minimum)
+        if (i === minimum)
           return 'indianred';
-        else if (i === state.current)
+        else if (i === current)
           return 'mediumorchid';
         return 'transparent';
       });
   }
 
   renderVisual(visualRef, state) {
-    this.renderEnterExit(visualRef, state.array, this.BAR_LENGTH);
-    this.renderUpdate(visualRef, state)
+    const { array, minimum, current } = state;
+
+    this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
+    this.renderUpdate(visualRef, array, minimum, current);
   }
 
   run(backtrack) {
