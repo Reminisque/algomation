@@ -3,11 +3,16 @@ import {
   insertionSort,
   mergeSort,
   selectionSort
-} from './Sorting';
+} from './sorting';
+
+import {
+  djikstra
+} from './graph';
 
 export {
   bubbleSort,
   insertionSort,
   mergeSort,
-  selectionSort
+  selectionSort,
+  djikstra
 };

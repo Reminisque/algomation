@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import logo from './logo.svg';
 import { Header, Button, CodeBox, Menu, MenuItem, TwoBarBurgerIcon } from './ui';
-import { selectionSort, insertionSort, bubbleSort, mergeSort } from './algorithms';
+import { selectionSort, insertionSort, bubbleSort, mergeSort, djikstra } from './algorithms';
 import styles from './App.module.css';
 
 class App extends React.Component {
@@ -50,12 +50,6 @@ class App extends React.Component {
         'Djikstra\'s Algorithm'
       ]
     },
-    {
-      title: 'Linked List',
-      algorithms: [
-        'Search'
-      ]
-    }
   ];
 
   toggleOpenAlgoMenu = () => {
@@ -114,6 +108,7 @@ class App extends React.Component {
   setAlgorithm(name) {
     let algorithm = null;
 
+    d3.select(window).on('resize', null);
     this.clearBacktrack();
 
     switch (name) {
@@ -128,6 +123,11 @@ class App extends React.Component {
         break;
       case 'Merge Sort':
         algorithm = new mergeSort();
+        break;
+      case 'Djikstra\'s Algorithm':
+        algorithm = new djikstra();
+        break;
+      default:
         break;
     }
 
