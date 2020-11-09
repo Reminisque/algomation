@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8392c7e0962547f8065f9635b284938c",
+    "revision": "90f21871185b7ad063770d2943f1f505",
     "url": "/algomation/index.html"
   },
   {
-    "revision": "f0541a7e879d94e42928",
-    "url": "/algomation/static/css/main.af60333a.chunk.css"
+    "revision": "54d497373a70c4bbb3bd",
+    "url": "/algomation/static/css/main.e050e01b.chunk.css"
   },
   {
     "revision": "5904fa7127c40c14bdb7",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/algomation/static/js/2.4ab06db3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f0541a7e879d94e42928",
+    "revision": "54d497373a70c4bbb3bd",
     "url": "/algomation/static/js/main.a7fe9fe0.chunk.js"
   },
   {
