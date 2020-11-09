@@ -2,6 +2,8 @@
 Algomation is a web application built with React for users to configure and view animations of various algorithms.<br />
 Users will be able to play forward and back animations step-by-step to better understand what each algorithm is doing.
 
+Demo site: https://reminisque.github.io/algomation/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Installation
