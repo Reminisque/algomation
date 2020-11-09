@@ -54,7 +54,7 @@
 }
 
 .algoMenu.open {
-  opacity: 100%;
+  opacity: 1;
   visibility: visible;
   transform: scale(1);
 }
