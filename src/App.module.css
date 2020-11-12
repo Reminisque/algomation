@@ -1,21 +1,22 @@
+@value header-height: 60px;
+@value main-color: rgb(202, 138, 138);
+@value bg-color: rgb(31, 39, 56);
+@value base-padding: 20px;
+@value base-anim-dur: 0.5s;
+
 .root {
-  --header-height: 60px;
-  --main-color: rgb(202, 138, 138);
-  --bg-color: rgb(31, 39, 56);
-  --base-padding: 20px;
-  --base-anim-dur: 0.5s;
   width: 100%;
   min-height: 100%;
-  color: var(--main-color);
-  background: var(--bg-color);
+  color: main-color;
+  background: bg-color;
 }
 
 .header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--header-height);
-  color: var(--main-color);
+  height: header-height;
+  color: main-color;
   padding: 0 16px;
 }
 
@@ -28,8 +29,8 @@
 
 .content {
   position: relative;
-  height: calc(100% - var(--header-height));
-  color: var(--main-color);
+  height: calc(100% - header-height);
+  color: --main-color;
 }
 
 .algoMenu {
@@ -38,8 +39,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--base-padding);
-  padding-top: calc(var(--base-padding) * 4);
+  padding: base-padding;
+  padding-top: calc(base-padding * 4);
   background: rgba(31, 39, 56, 0.95);
   overflow: hidden;
   white-space: nowrap;
@@ -47,9 +48,9 @@
   transform: scale(0.85);
   visibility: hidden;
   transition: 
-    opacity var(--base-anim-dur) ease-in-out,
-    transform calc(var(--base-anim-dur) - 0.1s) ease-in-out,
-    visibility calc(var(--base-anim-dur) + 0.1s);
+    opacity base-anim-dur ease-in-out,
+    transform calc(base-anim-dur - 0.1s) ease-in-out,
+    visibility calc(base-anim-dur + 0.1s);
   z-index: 1000
 }
 
@@ -126,7 +127,7 @@
 
 .pseudocode {
   font-size: 1.1rem;
-  color: var(--main-color);
+  color: main-color;
   background: rgb(31, 39, 56);
 }
 
