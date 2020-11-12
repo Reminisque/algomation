@@ -1,9 +1,16 @@
 import * as d3 from 'd3';
 import graph from './graph';
+import styles from './djikstra.module.css';
 
 class djikstra extends graph {
   constructor() {
     super();
+
+    this.START_NODE_COLOR = styles['start-node'];
+    this.END_NODE_COLOR = styles['end-node'];
+    this.CURRENT_NODE_COLOR = styles['current-node'];
+    this.QUEUED_LINK_COLOR = styles['link-queued'];
+    this.VISITED_LINK_COLOR = styles['link-visited'];
 
     this.name = 'Djikstra\'s Algorithm';
     this.category = 'Graph Algorithm';
@@ -31,15 +38,25 @@ class djikstra extends graph {
     let link = svg.selectAll('.link').data(links ? links : []);
 
     node
-      .style('stroke', d => d === current ? 'rgba(120, 253, 231, 0.795)' : null)
+      .style('stroke', d => d === current ? this.CURRENT_NODE_COLOR : null)
       .style('stroke-width', d => d === current ? 3 : 1);
+
+    node
+      .select('circle')
+      .style('fill', (d, i) => {
+        if (i === 0) {
+          return this.START_NODE_COLOR;
+        } else if (i === nodes.length - 1) {
+          return this.END_NODE_COLOR;
+        }
+      });
 
     link
       .style('stroke', d => {
         if (linkVisited.has(d)) {
-          return 'rgba(120, 253, 231, 0.795)';
+          return this.VISITED_LINK_COLOR;
         } else if (linkQueue.has(d)) {
-          return 'rgba(255, 64, 64, 0.795)';
+          return this.QUEUED_LINK_COLOR;
         } else {
           return this.LINK_COLOR;
         }

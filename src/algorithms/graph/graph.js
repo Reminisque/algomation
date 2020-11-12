@@ -1,18 +1,19 @@
 import * as d3 from 'd3';
+import styles from './graph.module.css';
 
 class graph {
   constructor() {
     this.NODE_AMOUNT = 10;
     this.NODE_RADIUS = 12;
     this.MAX_COST = 20;
-    this.MAIN_COLOR = 'rgb(202, 138, 138)';
-    this.LINK_COLOR = 'rgba(255, 255, 255, 0.4)';
+    this.MAIN_COLOR = styles['main-color'];
+    this.LINK_COLOR = styles['link-color'];
   }
 
   initialRender(visualRef) {
     d3.select(visualRef.current).selectAll('*').remove();
 
-    let svg = d3.select(visualRef.current)
+    d3.select(visualRef.current)
       .append('svg')
       .attr('id', 'svg')
       .style('width', '100%')
@@ -45,20 +46,12 @@ class graph {
     let g = node.enter()
       .append('g')
       .attr('class', 'node')
-      .style('fill', this.MAIN_COLOR)
+      .style('fill', this.MAIN_COLOR);
 
     g
       .append('circle')
       .attr('r', this.NODE_RADIUS)
-      .style('fill', (d, i) => {
-        if (i === 0) {
-          return 'green';
-        } else if (i === nodes.length - 1) {
-          return 'indianred';
-        } else {
-          return '';
-        }
-      });
+      .style('fill', this.MAIN_COLOR);
 
     node.exit()
       .remove();

@@ -1,0 +1,4 @@
+@value app: '../../App.module.css';
+@value main-color from app;
+
+@value link-color: rgba(255, 255, 255, 0.4);

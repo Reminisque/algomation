@@ -1,0 +1,5 @@
+@value start-node: rgb(85, 150, 204);
+@value end-node: rgb(219, 76, 66);
+@value current-node: rgba(120, 253, 231, 0.755);
+@value link-queued: rgb(219, 76, 66);
+@value link-visited: rgba(120, 253, 231, 0.755);
