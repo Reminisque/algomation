@@ -70,8 +70,9 @@ class djikstra extends graph {
 
   renderVisual(visualRef, state) {
     const { nodes, links, current, linkQueue, linkVisited } = state;
-    this.renderEnterExit(visualRef, nodes, links);
+    this.renderEnter(visualRef, nodes, links);
     this.renderUpdate(visualRef, nodes, links, current, linkQueue, linkVisited);
+    this.renderExit(visualRef, nodes, links);
     return;
   }
 

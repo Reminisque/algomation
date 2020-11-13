@@ -37,7 +37,7 @@ class graph {
       });
   }
 
-  renderEnterExit(visualRef, nodes, links) {
+  renderEnter(visualRef, nodes, links) {
     let svg = d3.select(visualRef.current).select('svg');
     let node = svg.selectAll('.node').data(nodes ? nodes : []);
     let link = svg.selectAll('.link').data(links ? links : []);
@@ -53,9 +53,6 @@ class graph {
       .attr('r', this.NODE_RADIUS)
       .style('fill', this.MAIN_COLOR);
 
-    node.exit()
-      .remove();
-
     link.enter()
       .append('line')
       .attr('class', 'link')
@@ -67,6 +64,16 @@ class graph {
       .attr('class', 'linkText')
       .attr('dy', -4)
       .style('fill', this.MAIN_COLOR);
+  }
+
+  renderExit(visualRef, nodes, links) {
+    let svg = d3.select(visualRef.current).select('svg');
+    let node = svg.selectAll('.node').data(nodes ? nodes : []);
+    let link = svg.selectAll('.link').data(links ? links : []);
+    let linkText = svg.selectAll('.linkText').data(links ? links : []);
+
+    node.exit()
+      .remove();
 
     link.exit()
       .remove();
@@ -88,7 +95,7 @@ class graph {
     for (let node = 0; node < nodeAmount - 1; node++) {
       let linkAmount = Math.floor(Math.random() * 2) + 1;
       let n = nodes[node];
-      let initialLink = { 
+      let initialLink = {
         source: node,
         target: node + 1,
         cost: Math.floor(Math.random() * maxCost) + 1
