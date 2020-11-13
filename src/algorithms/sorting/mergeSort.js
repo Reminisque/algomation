@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import sorting from './sorting';
+import styles from './sorting.module.css';
 
 class mergeSort extends sorting {
   constructor() {
@@ -110,9 +111,9 @@ class mergeSort extends sorting {
       })
       .style('background', (d, i) => {
         if (left <= i && i < mid)
-          return 'indianred';
+          return styles['select-primary'];
         else if (mid <= i && i < right)
-          return 'mediumorchid';
+          return styles['select-secondary'];
         return 'transparent';
       });
 

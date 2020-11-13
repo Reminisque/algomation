@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import sorting from './sorting';
+import styles from './sorting.module.css';
 
 class insertionSort extends sorting {
   constructor() {
@@ -32,9 +33,9 @@ class insertionSort extends sorting {
       .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
         if (i === current)
-          return 'indianred';
+          return styles['select-primary'];
         else if (i === previous)
-          return 'mediumorchid';
+          return styles['select-secondary'];
         return 'transparent';
       });
   }

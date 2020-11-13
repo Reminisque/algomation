@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import graph from './graph';
-import styles from './djikstra.module.css';
+import styles from './graph.module.css';
 
 class djikstra extends graph {
   constructor() {

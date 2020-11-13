@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import sorting from './sorting';
+import styles from './sorting.module.css';
 
 class selectionSort extends sorting {
   constructor() {
@@ -33,9 +34,9 @@ class selectionSort extends sorting {
       .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`)
       .style('background', (d, i) => {
         if (i === minimum)
-          return 'indianred';
+          return styles['select-primary'];
         else if (i === current)
-          return 'mediumorchid';
+          return styles['select-secondary'];
         return 'transparent';
       });
   }
