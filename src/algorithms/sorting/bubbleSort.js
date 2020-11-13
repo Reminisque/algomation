@@ -44,8 +44,9 @@ class bubbleSort extends sorting {
   renderVisual(visualRef, state) {
     const { array, current, next } = state;
 
-    this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
+    this.renderEnter(visualRef, array, this.BAR_LENGTH);
     this.renderUpdate(visualRef, array, current, next);
+    this.renderExit(visualRef, array)
   }
 
   run(backtrack) {

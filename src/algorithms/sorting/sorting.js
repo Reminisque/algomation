@@ -16,15 +16,9 @@ class sorting {
       .style('justify-content', 'center');
   }
 
-  renderEnterExit(visualRef, array, barLength) {
+  renderEnter(visualRef, array, barLength) {
     let ref = d3.select(visualRef.current).select('div');
     let div = ref.selectAll('div').data(array ? array : []);
-
-    div.exit()
-      .transition()
-      .duration(500)
-      .style('opacity', 0)
-      .remove();
 
     div.enter()
       .append('div')
@@ -34,6 +28,17 @@ class sorting {
       .style('border', '1px solid')
       .style('text-align', 'center')
       .text((d) => d);
+  }
+
+  renderExit(visualRef, array) {
+    let ref = d3.select(visualRef.current).select('div');
+    let div = ref.selectAll('div').data(array ? array : []);
+    
+    div.exit()
+    .transition()
+    .duration(500)
+    .style('opacity', 0)
+    .remove();
   }
 }
 export default sorting;

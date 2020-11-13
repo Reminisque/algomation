@@ -53,16 +53,10 @@ class mergeSort extends sorting {
       .style('justify-content', 'center');
   }
 
-  renderEnterExit(visualRef, mainArray, altArray, barLength) {
+  renderEnter(visualRef, mainArray, altArray, barLength) {
     let ref = d3.select(visualRef.current);
     let main = ref.select('#main').selectAll('div').data(mainArray ? mainArray : []);
     let alt = ref.select('#alt').selectAll('div').data(altArray ? altArray : []);
-
-    main.exit()
-      .transition()
-      .duration(500)
-      .style('opacity', 0)
-      .remove();
 
     main.enter()
       .append('div')
@@ -73,14 +67,6 @@ class mergeSort extends sorting {
       .style('text-align', 'center')
       .text((d) => d);
 
-    alt.exit()
-      .transition()
-      .duration(100)
-      .style('height', '0px')
-      .duration(150)
-      .style('opacity', 0)
-      .remove();
-
     alt.enter()
       .append('div')
       .merge(alt)
@@ -90,6 +76,26 @@ class mergeSort extends sorting {
       .style('border', '1px solid')
       .style('text-align', 'center')
       .text((d) => d);
+  }
+
+  renderExit(visualRef, mainArray, altArray) {
+    let ref = d3.select(visualRef.current);
+    let main = ref.select('#main').selectAll('div').data(mainArray ? mainArray : []);
+    let alt = ref.select('#alt').selectAll('div').data(altArray ? altArray : []);
+
+    main.exit()
+      .transition()
+      .duration(500)
+      .style('opacity', 0)
+      .remove();
+
+    alt.exit()
+      .transition()
+      .duration(100)
+      .style('height', '0px')
+      .duration(150)
+      .style('opacity', 0)
+      .remove();
   }
 
   renderUpdate(visualRef, mainArray, altArray, left, mid, right) {
@@ -120,14 +126,15 @@ class mergeSort extends sorting {
     alt
       .transition()
       .duration(150)
-      .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`);      
+      .style('height', (d) => `${this.BAR_LENGTH + d * 1.5}px`);
   }
 
   renderVisual(visualRef, state) {
-    const { mainArray, altArray, left, mid, right} = state;
-    
-    this.renderEnterExit(visualRef, mainArray, altArray, this.BAR_LENGTH);
+    const { mainArray, altArray, left, mid, right } = state;
+
+    this.renderEnter(visualRef, mainArray, altArray, this.BAR_LENGTH);
     this.renderUpdate(visualRef, mainArray, altArray, left, mid, right)
+    this.renderExit(visualRef, mainArray, altArray)
   }
 
   run(backtrack) {
@@ -137,7 +144,7 @@ class mergeSort extends sorting {
       altArray: [],
       codeHighlights: new Set()
     };
-    
+
     function mergeSort(left, right) {
       if (right - left > 1) {
         let mid = Math.floor(left + (right - left) / 2);
@@ -151,7 +158,7 @@ class mergeSort extends sorting {
         }
         backtrack.push(state);
         mergeSort(left, mid);
-        
+
         state = {
           ...state,
           left: mid,
@@ -167,10 +174,10 @@ class mergeSort extends sorting {
           left: left,
           mid: mid,
           right: right,
-          codeHighlights: new Set([4]) 
+          codeHighlights: new Set([4])
         };
         backtrack.push(state);
-        
+
 
         let leftHalf = unsorted.slice(left, mid);
         let rightHalf = unsorted.slice(mid, right);
@@ -224,7 +231,7 @@ class mergeSort extends sorting {
             ...state,
             mainArray: [...unsorted],
             altArray: [...merged],
-            codeHighlights: new Set([11]) 
+            codeHighlights: new Set([11])
           };
           backtrack.push(state);
         }

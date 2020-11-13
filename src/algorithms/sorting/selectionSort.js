@@ -46,8 +46,9 @@ class selectionSort extends sorting {
   renderVisual(visualRef, state) {
     const { array, start, minimum, current } = state;
 
-    this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
+    this.renderEnter(visualRef, array, this.BAR_LENGTH);
     this.renderUpdate(visualRef, array, start, minimum, current);
+    this.renderExit(visualRef, array);
   }
 
   run(backtrack) {
