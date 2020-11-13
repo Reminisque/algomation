@@ -18,7 +18,7 @@ class selectionSort extends sorting {
     ];
   }
 
-  renderUpdate(visualRef, array, minimum, current) {
+  renderUpdate(visualRef, array, start, minimum, current) {
     let div = d3
       .select(visualRef.current)
       .select('div')
@@ -37,15 +37,17 @@ class selectionSort extends sorting {
           return styles['select-primary'];
         else if (i === current)
           return styles['select-secondary'];
+        else if (i === start)
+          return styles['select-tertiary']
         return 'transparent';
       });
   }
 
   renderVisual(visualRef, state) {
-    const { array, minimum, current } = state;
+    const { array, start, minimum, current } = state;
 
     this.renderEnterExit(visualRef, array, this.BAR_LENGTH);
-    this.renderUpdate(visualRef, array, minimum, current);
+    this.renderUpdate(visualRef, array, start, minimum, current);
   }
 
   run(backtrack) {
@@ -55,7 +57,6 @@ class selectionSort extends sorting {
       start: -1,
       minimum: -1,
       current: -1,
-      sortedTo: -1,
       codeHighlights: new Set()
     };
 
@@ -92,16 +93,15 @@ class selectionSort extends sorting {
       state = {
         ...state,
         array: [...unsorted],
-        sortedTo: start,
         codeHighlights: new Set([1, 6])
       };
       backtrack.push(state);
     }
     state = {
       ...state,
+      start: -1,
       minimum: -1,
       current: -1,
-      sortedTo: unsorted.length - 1,
       codeHighlights: new Set()
     };
     backtrack.push(state);
