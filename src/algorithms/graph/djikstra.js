@@ -38,8 +38,8 @@ class djikstra extends graph {
     let link = svg.selectAll('.link').data(links ? links : []);
 
     node
-      .style('stroke', d => d === current ? this.CURRENT_NODE_COLOR : null)
-      .style('stroke-width', d => d === current ? 3 : 1);
+      .style('stroke', (d) => d === current ? this.CURRENT_NODE_COLOR : null)
+      .style('stroke-width', (d) => d === current ? 3 : 1);
 
     node
       .select('circle')
@@ -52,7 +52,7 @@ class djikstra extends graph {
       });
 
     link
-      .style('stroke', d => {
+      .style('stroke', (d) => {
         if (linkVisited.has(d)) {
           return this.VISITED_LINK_COLOR;
         } else if (linkQueue.has(d)) {
