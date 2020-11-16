@@ -2,7 +2,8 @@ import {
   bubbleSort,
   insertionSort,
   mergeSort,
-  selectionSort
+  selectionSort,
+  quickSort
 } from './sorting';
 
 import {
@@ -13,6 +14,7 @@ export {
   bubbleSort,
   insertionSort,
   mergeSort,
+  quickSort,
   selectionSort,
   djikstra
 };
