@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6f05c5ccc9e38409b545ea68b6a8bd13",
+    "revision": "175732774cef95ad0592711c48c87c1e",
     "url": "/algomation/index.html"
   },
   {
-    "revision": "030a56ac0459d5e56d99",
+    "revision": "a2d72e231a04cfdc6324",
     "url": "/algomation/static/css/main.d9079cb8.chunk.css"
   },
   {
-    "revision": "38eb0997eab21388e1c3",
-    "url": "/algomation/static/js/2.359b5bf1.chunk.js"
+    "revision": "0daca9ae685e1c20f6b2",
+    "url": "/algomation/static/js/2.b4f35373.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/algomation/static/js/2.359b5bf1.chunk.js.LICENSE.txt"
+    "url": "/algomation/static/js/2.b4f35373.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "030a56ac0459d5e56d99",
-    "url": "/algomation/static/js/main.9f26c426.chunk.js"
+    "revision": "a2d72e231a04cfdc6324",
+    "url": "/algomation/static/js/main.813e85c8.chunk.js"
   },
   {
     "revision": "4cdd25f8d9cf8844da40",

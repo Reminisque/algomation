@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/algomation/static/css/main.d9079cb8.chunk.css",
-    "main.js": "/algomation/static/js/main.9f26c426.chunk.js",
-    "main.js.map": "/algomation/static/js/main.9f26c426.chunk.js.map",
+    "main.js": "/algomation/static/js/main.813e85c8.chunk.js",
+    "main.js.map": "/algomation/static/js/main.813e85c8.chunk.js.map",
     "runtime-main.js": "/algomation/static/js/runtime-main.b18552b2.js",
     "runtime-main.js.map": "/algomation/static/js/runtime-main.b18552b2.js.map",
-    "static/js/2.359b5bf1.chunk.js": "/algomation/static/js/2.359b5bf1.chunk.js",
-    "static/js/2.359b5bf1.chunk.js.map": "/algomation/static/js/2.359b5bf1.chunk.js.map",
+    "static/js/2.b4f35373.chunk.js": "/algomation/static/js/2.b4f35373.chunk.js",
+    "static/js/2.b4f35373.chunk.js.map": "/algomation/static/js/2.b4f35373.chunk.js.map",
     "index.html": "/algomation/index.html",
-    "precache-manifest.930d5d67bdfdf21e33de0fef8ded5fad.js": "/algomation/precache-manifest.930d5d67bdfdf21e33de0fef8ded5fad.js",
+    "precache-manifest.98cd1ee90636172647936c6bf52b8855.js": "/algomation/precache-manifest.98cd1ee90636172647936c6bf52b8855.js",
     "service-worker.js": "/algomation/service-worker.js",
     "static/css/main.d9079cb8.chunk.css.map": "/algomation/static/css/main.d9079cb8.chunk.css.map",
-    "static/js/2.359b5bf1.chunk.js.LICENSE.txt": "/algomation/static/js/2.359b5bf1.chunk.js.LICENSE.txt",
+    "static/js/2.b4f35373.chunk.js.LICENSE.txt": "/algomation/static/js/2.b4f35373.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/algomation/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b18552b2.js",
-    "static/js/2.359b5bf1.chunk.js",
+    "static/js/2.b4f35373.chunk.js",
     "static/css/main.d9079cb8.chunk.css",
-    "static/js/main.9f26c426.chunk.js"
+    "static/js/main.813e85c8.chunk.js"
   ]
 }
