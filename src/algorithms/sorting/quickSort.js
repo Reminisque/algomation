@@ -163,7 +163,6 @@ class quickSort extends sorting {
       codeHighlights: new Set()
     };
     backtrack.push(state);
-    console.log(backtrack);
   }
 }
 
