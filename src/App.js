@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import logo from './logo.svg';
 import { Header, Button, CodeBox, Menu, MenuItem, TwoBarBurgerIcon } from './ui';
-import { selectionSort, insertionSort, bubbleSort, mergeSort, quickSort, djikstra } from './algorithms';
+import { selectionSort, insertionSort, bubbleSort, mergeSort, quickSort, radixSort, djikstra } from './algorithms';
 import styles from './App.module.css';
 
 class App extends React.Component {
@@ -42,7 +42,8 @@ class App extends React.Component {
         'Insertion Sort',
         'Bubble Sort',
         'Merge Sort',
-        'Quick Sort'
+        'Quick Sort',
+        'Radix Sort'
       ]
     },
     {
@@ -130,6 +131,9 @@ class App extends React.Component {
         break;
       case 'Quick Sort':
         algorithm = new quickSort();
+        break;
+      case 'Radix Sort':
+        algorithm = new radixSort();
         break;
       default:
         break;

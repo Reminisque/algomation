@@ -2,6 +2,7 @@ import bubbleSort from './bubbleSort';
 import insertionSort from './insertionSort';
 import mergeSort from './mergeSort';
 import quickSort from './quickSort';
+import radixSort from './radixSort';
 import selectionSort from './selectionSort';
 
 export {
@@ -9,5 +10,6 @@ export {
   insertionSort,
   mergeSort,
   quickSort,
+  radixSort,
   selectionSort
 };

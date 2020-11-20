@@ -3,6 +3,7 @@ import {
   insertionSort,
   mergeSort,
   selectionSort,
+  radixSort,
   quickSort
 } from './sorting';
 
@@ -15,6 +16,7 @@ export {
   insertionSort,
   mergeSort,
   quickSort,
+  radixSort,
   selectionSort,
   djikstra
 };
