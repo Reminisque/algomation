@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/algomation/static/css/main.d9079cb8.chunk.css",
-    "main.js": "/algomation/static/js/main.813e85c8.chunk.js",
-    "main.js.map": "/algomation/static/js/main.813e85c8.chunk.js.map",
+    "main.js": "/algomation/static/js/main.e2f75df4.chunk.js",
+    "main.js.map": "/algomation/static/js/main.e2f75df4.chunk.js.map",
     "runtime-main.js": "/algomation/static/js/runtime-main.b18552b2.js",
     "runtime-main.js.map": "/algomation/static/js/runtime-main.b18552b2.js.map",
     "static/js/2.b4f35373.chunk.js": "/algomation/static/js/2.b4f35373.chunk.js",
     "static/js/2.b4f35373.chunk.js.map": "/algomation/static/js/2.b4f35373.chunk.js.map",
     "index.html": "/algomation/index.html",
-    "precache-manifest.98cd1ee90636172647936c6bf52b8855.js": "/algomation/precache-manifest.98cd1ee90636172647936c6bf52b8855.js",
+    "precache-manifest.20655b65acb11167f97eb21b335d4bfa.js": "/algomation/precache-manifest.20655b65acb11167f97eb21b335d4bfa.js",
     "service-worker.js": "/algomation/service-worker.js",
     "static/css/main.d9079cb8.chunk.css.map": "/algomation/static/css/main.d9079cb8.chunk.css.map",
     "static/js/2.b4f35373.chunk.js.LICENSE.txt": "/algomation/static/js/2.b4f35373.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.b18552b2.js",
     "static/js/2.b4f35373.chunk.js",
     "static/css/main.d9079cb8.chunk.css",
-    "static/js/main.813e85c8.chunk.js"
+    "static/js/main.e2f75df4.chunk.js"
   ]
 }
